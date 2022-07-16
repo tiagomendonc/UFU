@@ -4,44 +4,56 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-float aloca(int l, int c) {
-    float **mat;
-    mat = (float *) malloc(l*sizeof(float));
+float** aloca(int l, int c) 
+{
+    float **mat = (float **) malloc(l*sizeof(float));
     for (int i = 0; i < l; i++) {
-        mat[i] = (float *) malloc(c*sizeof(float));
+        mat[i] = (int *) malloc(c*sizeof(int));
     }
-    return **mat;
+    return mat;
 }
 
-void leitura(float **mat, int l, int c) {
+void leitura(float** mat, int l, int c) 
+{
     for (int i = 0; i < l; i++) {
         for (int j = 0; j < c; j++) {
-            scanf("%d", &mat[i][j]);
+            scanf("%f", &mat[i][j]);
         }
     }
 }
 
-float multiplica(float **matA, int la, int ca, float **matB, int lb, int cb, float **matResultado) {
-    **matResultado = aloca(la, cb);
+float** multiplica(float **matA, int la, int ca, float **matB, int lb, int cb) 
+{
+    float **matResultado = aloca(la, cb);
+    for (int i = 0; i < la; i++) {
+        for (int j = 0; j < cb; j++) {
+            matResultado[i][j] = 0;
+        }
+    }
+    
     for (int i = 0; i < la; i++) {
         for (int j = 0; j < cb; j++) {
             for (int k = 0; k < ca; k++) {
-                matResultado[i][j] = matA[i][k] * matB[k][j];
+                matResultado[i][j] += matA[i][k] * matB[k][j];
             }
         }
     }
-    return **matResultado;
+    return matResultado;
 }
 
-void imprime(float **mat, int l, int c) {
+void imprime(float **mat, int l, int c) 
+{
     for(int i = 0; i < l; i++) {
         for (int j = 0; j < c; j++) {
-            printf("%d ", mat);
+            printf("%.2f ", mat[i][j]);
         }
+        printf("\n");
     }
+    printf("\n");
 }
 
-void desaloca(float **mat, int l) {
+void desaloca(float **mat, int l) 
+{
     for(int i = 0; i < l; i++) {
         free(mat[i]);
     }
@@ -50,35 +62,21 @@ void desaloca(float **mat, int l) {
 
 int main()
 {
-    int la, ca, lb, cb;
-    printf("Informe o numero de linhas da matriz A: \n");
-    scanf("%d", &la);
-    printf("Informe o numero de colunas da matriz A: \n");
-    scanf("%d", &ca);
-    cb = la;
-    lb = ca;
+    float **m1 = aloca(2, 3);
+    leitura(m1, 2, 3);
 
-    float matA = aloca(la, ca);
-    printf("Informe %d numeros para a matriz A: \n", la * ca);
-    leitura(&matA, la, ca);
+    float **m2 = aloca(3, 4);
+    leitura(m2, 3, 4);
 
-    float matB = aloca(lb, cb);
-    printf("Informe %d numeros para a matriz B: \n", lb * cb);
-    leitura(&matB, lb, cb);
+    float **m3 = multiplica(m1, 2, 3, m2, 3, 4);
 
-    float matAxB = aloca(la, cb);
-    matAxB = multiplica(&matA, la, ca, &matB, lb, cb, &matAxB);
+    imprime(m1, 2, 3);
+    imprime(m2, 3, 4);
+    imprime(m3, 2, 4);
 
-    printf("A matriz A eh: \n");
-    imprime(&matA, la, ca);
-    printf("A matriz B eh: \n");
-    imprime(&matB, lb, cb);
-    printf("O resultado da multiplicacao dessas matrizes eh: \n");
-    imprime(&matAxB, la, cb);
-
-    desaloca(&matA, la);
-    desaloca(&matB, lb);
-    desaloca(&matAxB, la);
+    desaloca(m1, 2);
+    desaloca(m2, 3);
+    desaloca(m3, 2);
 
     return 0;
 }
