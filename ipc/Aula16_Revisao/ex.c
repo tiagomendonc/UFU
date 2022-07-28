@@ -45,7 +45,7 @@ int pesquisaBinariaI(int *vet, int tam, int n, int *comparacoes) {
         *comparacoes = *comparacoes + 1;
         if(n < vet[meio]) {
             fim = meio - 1;
-            continue;;
+            continue;
         }
         if(n > vet[meio]) {
             inicio = meio + 1;
@@ -87,7 +87,7 @@ int main()
         printf("%d, ", vet[i]);
     }
 
-    int n, meio;
+    int n;
 
     do {
         printf("\nInforme um valor para buscar no vetor: \n");
@@ -97,6 +97,8 @@ int main()
         printf("Pesquisa Binaria:\nEncontrado na posicao: %d.", pesquisaBinariaI(vet, tam, n, &comparacao2)); printf(" %d comparacoes.\n", comparacao2);
         printf("Pesquisa Binaria Recursiva:\nEncontrado na posicao: %d.", pesquisaBinariaR(vet, tam, n));
     } while(n);
+
+    free(vet);
 
     return 0;
 }
