@@ -244,6 +244,8 @@ void inserir(FILE *f) {
     fwrite(&v1.saida.dia, sizeof(int), 1, f);
     fwrite(&v1.saida.hora, sizeof(int), 1, f);
     fwrite(&v1.saida.min, sizeof(int), 1, f);
+
+    v1.status = 'P';
 }
 
 void alterar(FILE *f) {
@@ -259,7 +261,39 @@ void buscar(FILE *f) {
 }
 
 void listar(FILE *f) {
-    // COMPLETAR
+    struct cadastro v1;
+    printf("Os registros ja incluidos sao:\n");
+
+    printf("Placa: ");
+    fread(v1.placa, sizeof(v1.placa), 1, f);
+    for(int i = 0; i < 7; i++) {
+        printf("%c", v1.placa[i]);
+    }
+    printf("\n");
+
+    printf("Modelo: ");
+    fread(v1.modelo, sizeof(v1.modelo), 1, f);
+    for(int i = 0; i < 10; i++) {
+        printf("%c", v1.modelo[i]);
+    }
+    printf("\n");
+
+    printf("Cor: ");
+    fread(v1.cor, sizeof(v1.cor), 1, f);
+    for(int i = 0; i < 10; i++) {
+        printf("%c", v1.cor[i]);
+    }
+    printf("\n");
+
+    printf("ENTRADA:\n");
+    printf("Ano: ");
+    fread(&v1.entrada.ano, sizeof(int), 1, f);
+    printf("%d", v1.entrada.ano);
+    printf("\n");
+
+    printf("Mes: ");
+    fread(&v1.entrada.mes, sizeof(int), 1, f);
+    printf("%d", v1.entrada.mes);
 }
 
 int main()
@@ -269,7 +303,7 @@ int main()
     if(f == NULL) {
         f = fopen("C:\\ufu\\ipc\\Lista5\\arquivos\\dados.txt", "wb+");
         if(f == NULL) {
-            printf("ERROR: Nao foi possivel abrir o arquivo.");
+            printf("ERROR: Nao foi possivel abrir o arquivo.\n");
         }
     }
 
