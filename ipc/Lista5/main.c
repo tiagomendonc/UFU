@@ -5,6 +5,7 @@
 struct horario {
     int ano, mes, dia, hora, min;
 };
+typedef struct horario Horario;
 
 struct cadastro {
     char placa[8];
@@ -16,179 +17,77 @@ struct cadastro {
 };
 typedef struct cadastro veiculo;
 
-int anoBissextoEntrada(veiculo v1) {
+int entraAno() {
+    int ano;
+    printf("Ano: \n"); scanf("%d", &ano);
+    return ano;
+}
+
+int entraMes(int bissexto) {
+    int mes;
+    while(1) {
+        printf("Mes: \n"); scanf("%d", &mes);
+        if(mes < 1 || mes > 12) {
+            printf("Mes invalido! Informe um mes entre 1 e 12:\n");
+        } else {
+            return mes;
+        }
+    }
+}
+
+int entraDia(int diasMes) {
+    int dia;
+    while(1) {
+        printf("Dia: \n"); scanf("%d", &dia);
+        if(dia < 1 || dia > diasMes) {
+            printf("Dia invalido! Informe um dia entre 1 e %d:\n", diasMes);
+        } else {
+            return dia;
+        }
+    }
+}
+
+int entraHora() {
+    int hora;
+    while(1) {
+        printf("Hora: \n"); scanf("%d", &hora);
+        if(hora < 0 || hora > 24) {
+            printf("Hora invalida! Informe uma hora entre 01 e 24:\n");
+        } else {
+            return hora;
+        }
+    }
+}
+
+int entraMinuto() {
+    int min;
+    while(1) {
+        printf("Minuto: \n"); scanf("%d", &min);
+        if(min < 0 || min > 59) {
+            printf("Minutos invalidos! Informe minutos entre 00 e 59");
+        } else {
+            return min;
+        }
+    }
+}
+
+void verificaHorarios(Horario h) {
     int bissexto = 0;
-    if((v1.entrada.ano % 400 == 0) || ((v1.entrada.ano % 4 == 0) && (v1.entrada.ano % 100 != 0))) {
+    h.ano = entraAno();
+    if (((h.ano) % 400 == 0) || (((h.ano) % 4 == 0) && ((h.ano) % 100 != 0))) {
         bissexto = 1;
     }
-    return bissexto;
-}
 
-int anoBissextoSaida(veiculo v1) {
-    int bissexto = 0;
-    if((v1.saida.ano % 400 == 0) || ((v1.saida.ano % 4 == 0) && (v1.saida.ano % 100 != 0))) {
-        bissexto = 1;
-    }
-    return bissexto;
-}
+    h.mes = entraMes(bissexto);
 
-void validaMesEntrada(veiculo v1) {
-    for(int i = 0; i < 1; i++) {   
-        if(v1.entrada.mes <= 0 || v1.entrada.mes > 12) {
-            printf("Mes invalido! Informe um mes de 1 a 12:\n");
-            i--;
-        }
-    }
-}
-
-void validaMesSaida(veiculo v1) {
-    for(int i = 0; i < 1; i++) {  
-        if(v1.saida.mes <= 0 || v1.saida.mes > 12) {
-            printf("Mes invalido! Informe um mes de 1 a 12:\n");
-            i--;
-        }
-    }
-}
-
-int verificaDiasMesEntrada(veiculo v1) {
-    int diasMes = 0;
-    if(v1.entrada.mes == 1 || v1.entrada.mes == 3 || v1.entrada.mes == 5 || v1.entrada.mes == 7 || v1.entrada.mes == 8 || v1.entrada.mes == 10 || v1.entrada.mes == 11) {
-        diasMes = 1;
-    }
-    return diasMes;
-}
-
-int verificaDiasMesSaida(veiculo v1) {
-    int diasMes = 0;
-    if(v1.saida.mes == 1 || v1.saida.mes == 3 || v1.saida.mes == 5 || v1.saida.mes == 7 || v1.saida.mes == 8 || v1.saida.mes == 10 || v1.saida.mes == 11) {
-        diasMes = 1;
-    }
-    return diasMes;
-}
-
-void verificaDiaEntrada(veiculo v1, int bissexto, int diaMes) { // NÃO FUNCIONA - VERIFICAR!!!!!!
-    for(int i = 0; i < 1; i++) {
-        if(bissexto == 0) {
-            if(v1.entrada.mes == 2) {
-                if(v1.entrada.dia <= 0 || v1.entrada.dia > 28) {
-                    printf("Dia invalido! Informe um dia entre 1 e 28.\n");
-                    i--;
-                }
-            }
-            if(diaMes == 0) {
-                if(v1.entrada.dia <= 0 || v1.entrada.dia > 30) {
-                    printf("Dia invalido! Informe um dia entre 1 e 30.\n");
-                    i--;
-                }
-            }
-            if(diaMes == 1) {
-                if(v1.entrada.dia <= 0 || v1.entrada.dia > 31) {
-                    printf("Dia invalido! Informe um dia entre 1 e 31.\n");
-                    i--;
-                }
-            }
-        }
-        if(bissexto == 1) {
-            if(v1.entrada.mes == 2) {
-                if(v1.entrada.dia <= 0 || v1.entrada.dia > 29) {
-                    printf("Dia invalido! Informe um dia entre 1 e 29.\n");
-                    i--;
-                }
-            }
-            if(diaMes == 0) {
-                if(v1.entrada.dia <= 0 || v1.entrada.dia > 30) {
-                    printf("Dia invalido! Informe um dia entre 1 e 30.\n");
-                    i--;
-                }
-            }
-            if(diaMes == 1) {
-                if(v1.entrada.dia <= 0 || v1.entrada.dia > 31) {
-                    printf("Dia invalido! Informe um dia entre 1 e 31.\n");
-                    i--;
-                }
-            }
-        }
-    }
-}
-
-void verificaDiaSaida(veiculo v1, int bissexto, int diaMes) { // NÃO FUNCIONA - VERIFICAR!!!!!!
-    for(int i = 0; i < 1; i++) {
-        if(bissexto == 0) {
-            if(v1.saida.mes == 2) {
-                if(v1.saida.dia <= 0 || v1.saida.dia > 28) {
-                    printf("Dia invalido! Informe um dia entre 1 e 28.\n");
-                    i--;
-                }
-            }
-            if(diaMes == 0) {
-                if(v1.saida.dia <= 0 || v1.saida.dia > 30) {
-                    printf("Dia invalido! Informe um dia entre 1 e 30.\n");
-                    i--;
-                }
-            }
-            if(diaMes == 1) {
-                if(v1.saida.dia <= 0 || v1.saida.dia > 31) {
-                    printf("Dia invalido! Informe um dia entre 1 e 31.\n");
-                    i--;
-                }
-            }
-        }
-        if(bissexto == 1) {
-            if(v1.saida.mes == 2) {
-                if(v1.saida.dia <= 0 || v1.saida.dia > 29) {
-                    printf("Dia invalido! Informe um dia entre 1 e 29.\n");
-                    i--;
-                }
-            }
-            if(diaMes == 0) {
-                if(v1.saida.dia <= 0 || v1.saida.dia > 30) {
-                    printf("Dia invalido! Informe um dia entre 1 e 30.\n");
-                    i--;
-                }
-            }
-            if(diaMes == 1) {
-                if(v1.saida.dia <= 0 || v1.saida.dia > 31) {
-                    printf("Dia invalido! Informe um dia entre 1 e 31.\n");
-                    i--;
-                }
-            }
-        }
-    }
-}
-
-void verificaHoraEntrada(veiculo v1) {
-    for(int i = 0; i < 1; i++) { 
-        if(v1.entrada.hora <= 0 || v1.entrada.hora > 24) {
-            printf("Hora invalida! Informe uma hora entre 1 e 24.\n");
-            i--;
-        }
-    }
-}
-
-void verificaHoraSaida(veiculo v1) {
-    for(int i = 0; i < 1; i++) {  
-        if(v1.saida.hora <= 0 || v1.saida.hora > 24) {
-            printf("Hora invalida! Informe uma hora entre 1 e 24.\n");
-            i--;
-        }
-    }
-}
-
-void verificaMinutoEntrada(veiculo v1) {
-    for(int i = 0; i < 1; i++) {  
-        if(v1.entrada.min < 0 || v1.entrada.min > 59) {
-            printf("Minutos invalidos! Informe um minuto entre 00 e 59.\n");
-            i--;
-        }
-    }
-}
-
-void verificaMinutoSaida(veiculo v1) {
-    for(int i = 0; i < 1; i++) {  
-        if(v1.saida.min < 0 || v1.saida.min > 59) {
-            printf("Minutos invalidos! Informe um minuto entre 00 e 59.\n");
-            i--;
-        }
+    if(bissexto == 1 && h.mes == 2) {
+        h.dia = entraDia(29);
+    } else if(h.mes == 2) {
+        h.dia = entraDia(28);
+    } else if (h.mes == 1 || h.mes == 3 || h.mes == 1 || h.mes == 5 || h.mes == 7 || h.mes == 8 || h.mes == 10 || h.mes == 12) {
+        h.dia = entraDia(31);
+    } else {
+        h.dia = entraDia(30);
     }
 }
 
@@ -197,31 +96,10 @@ void inserir(FILE *f) {
     printf("Informe a placa do carro:\n"); scanf("%s", v1.placa); getchar();
     printf("Informe o modelo do carro:\n"); scanf("%s", v1.modelo); getchar();
     printf("Informe a cor do carro:\n"); scanf("%s", v1.cor); getchar();
-    printf("Informacoes sobre a entrada:\n");
-    printf("Ano:\n"); scanf("%d", &v1.entrada.ano);          
-    int bissexto = anoBissextoEntrada(v1);
-    printf("Mes:\n"); scanf("%d", &v1.entrada.mes);
-    validaMesEntrada(v1);
-    int diasMes = verificaDiasMesEntrada(v1);
-    printf("Dia:\n"); scanf("%d", &v1.entrada.dia);
-    verificaDiaEntrada(v1, bissexto, diasMes);
-    printf("Horario:\nHora:\n"); scanf("%d", &v1.entrada.hora);
-    verificaHoraEntrada(v1);
-    printf("Minutos:\n"); scanf("%d", &v1.entrada.min);
-    verificaMinutoEntrada(v1);
-
-    printf("\nAgora, insira informacoes da SAIDA.\n");
-    printf("Ano:\n"); scanf("%d", &v1.saida.ano);           
-    bissexto = anoBissextoSaida(v1);
-    printf("Mes:\n"); scanf("%d", &v1.saida.mes);
-    validaMesSaida(v1);
-    diasMes = verificaDiasMesSaida(v1);
-    printf("Dia:\n"); scanf("%d", &v1.saida.dia);
-    verificaDiaSaida(v1, bissexto, diasMes);
-    printf("Horario:\nHora:\n"); scanf("%d", &v1.saida.hora);
-    verificaHoraSaida(v1);
-    printf("Minutos:\n"); scanf("%d", &v1.saida.min);
-    verificaMinutoSaida(v1);
+    printf("Informacoes sobre o horario de entrada:\n");
+    verificaHorarios(v1.entrada);
+    printf("\nAgora, insira informacoes do horario da SAIDA.\n");
+    verificaHorarios(v1.saida);
 
     v1.status = 'P';
 
@@ -231,7 +109,9 @@ void inserir(FILE *f) {
 }
 
 void alterar(FILE *f) {
-    // COMPLETAR
+    struct cadastro v1;
+    char placa[8];
+    printf("Informe a placa do veiculo a ser alterado:\n"); scanf("%s",placa); getchar();
 }
 
 void remover(FILE *f) {
