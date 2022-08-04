@@ -1,12 +1,13 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 struct horario {
     int ano, mes, dia, hora, min;
 };
 
 struct cadastro {
-    char placa[7];
+    char placa[8];
     char modelo[10];
     char cor[10];
     struct horario entrada;
@@ -32,8 +33,7 @@ int anoBissextoSaida(veiculo v1) {
 }
 
 void validaMesEntrada(veiculo v1) {
-    for(int i = 0; i < 1; i++) {
-        scanf("%d", &v1.entrada.mes);   
+    for(int i = 0; i < 1; i++) {   
         if(v1.entrada.mes <= 0 || v1.entrada.mes > 12) {
             printf("Mes invalido! Informe um mes de 1 a 12:\n");
             i--;
@@ -42,8 +42,7 @@ void validaMesEntrada(veiculo v1) {
 }
 
 void validaMesSaida(veiculo v1) {
-    for(int i = 0; i < 1; i++) {
-        scanf("%d", &v1.saida.mes);   
+    for(int i = 0; i < 1; i++) {  
         if(v1.saida.mes <= 0 || v1.saida.mes > 12) {
             printf("Mes invalido! Informe um mes de 1 a 12:\n");
             i--;
@@ -69,7 +68,6 @@ int verificaDiasMesSaida(veiculo v1) {
 
 void verificaDiaEntrada(veiculo v1, int bissexto, int diaMes) { // NÃO FUNCIONA - VERIFICAR!!!!!!
     for(int i = 0; i < 1; i++) {
-        scanf("%d", &v1.entrada.dia);  
         if(bissexto == 0) {
             if(v1.entrada.mes == 2) {
                 if(v1.entrada.dia <= 0 || v1.entrada.dia > 28) {
@@ -115,7 +113,6 @@ void verificaDiaEntrada(veiculo v1, int bissexto, int diaMes) { // NÃO FUNCIONA
 
 void verificaDiaSaida(veiculo v1, int bissexto, int diaMes) { // NÃO FUNCIONA - VERIFICAR!!!!!!
     for(int i = 0; i < 1; i++) {
-        scanf("%d", &v1.saida.dia);  
         if(bissexto == 0) {
             if(v1.saida.mes == 2) {
                 if(v1.saida.dia <= 0 || v1.saida.dia > 28) {
@@ -160,8 +157,7 @@ void verificaDiaSaida(veiculo v1, int bissexto, int diaMes) { // NÃO FUNCIONA -
 }
 
 void verificaHoraEntrada(veiculo v1) {
-    for(int i = 0; i < 1; i++) {
-        scanf("%d", &v1.entrada.hora);   
+    for(int i = 0; i < 1; i++) { 
         if(v1.entrada.hora <= 0 || v1.entrada.hora > 24) {
             printf("Hora invalida! Informe uma hora entre 1 e 24.\n");
             i--;
@@ -170,8 +166,7 @@ void verificaHoraEntrada(veiculo v1) {
 }
 
 void verificaHoraSaida(veiculo v1) {
-    for(int i = 0; i < 1; i++) {
-        scanf("%d", &v1.saida.hora);   
+    for(int i = 0; i < 1; i++) {  
         if(v1.saida.hora <= 0 || v1.saida.hora > 24) {
             printf("Hora invalida! Informe uma hora entre 1 e 24.\n");
             i--;
@@ -180,8 +175,7 @@ void verificaHoraSaida(veiculo v1) {
 }
 
 void verificaMinutoEntrada(veiculo v1) {
-    for(int i = 0; i < 1; i++) {
-        scanf("%d", &v1.entrada.min);   
+    for(int i = 0; i < 1; i++) {  
         if(v1.entrada.min < 0 || v1.entrada.min > 59) {
             printf("Minutos invalidos! Informe um minuto entre 00 e 59.\n");
             i--;
@@ -190,8 +184,7 @@ void verificaMinutoEntrada(veiculo v1) {
 }
 
 void verificaMinutoSaida(veiculo v1) {
-    for(int i = 0; i < 1; i++) {
-        scanf("%d", &v1.saida.min);   
+    for(int i = 0; i < 1; i++) {  
         if(v1.saida.min < 0 || v1.saida.min > 59) {
             printf("Minutos invalidos! Informe um minuto entre 00 e 59.\n");
             i--;
@@ -202,48 +195,39 @@ void verificaMinutoSaida(veiculo v1) {
 void inserir(FILE *f) {
     struct cadastro v1;
     printf("Informe a placa do carro:\n"); scanf("%s", v1.placa); getchar();
-    fwrite(v1.placa, sizeof(char), strlen(v1.placa), f);
     printf("Informe o modelo do carro:\n"); scanf("%s", v1.modelo); getchar();
-    fwrite(v1.modelo, sizeof(char), strlen(v1.modelo), f);
     printf("Informe a cor do carro:\n"); scanf("%s", v1.cor); getchar();
-    fwrite(v1.cor, sizeof(char), strlen(v1.cor), f);
     printf("Informacoes sobre a entrada:\n");
     printf("Ano:\n"); scanf("%d", &v1.entrada.ano);          
     int bissexto = anoBissextoEntrada(v1);
-    fwrite(&v1.entrada.ano, sizeof(int), 1, f);
-    printf("Mes:\n");
+    printf("Mes:\n"); scanf("%d", &v1.entrada.mes);
     validaMesEntrada(v1);
     int diasMes = verificaDiasMesEntrada(v1);
-    fwrite(v1.entrada.mes, sizeof(int), 1, f);
-    printf("Dia:\n");
+    printf("Dia:\n"); scanf("%d", &v1.entrada.dia);
     verificaDiaEntrada(v1, bissexto, diasMes);
-    fwrite(&v1.entrada.dia, sizeof(int), 1, f);
-    printf("Horário:\nHora:\n");
+    printf("Horario:\nHora:\n"); scanf("%d", &v1.entrada.hora);
     verificaHoraEntrada(v1);
-    fwrite(&v1.entrada.hora, sizeof(int), 1, f);
-    printf("Minutos:\n");
+    printf("Minutos:\n"); scanf("%d", &v1.entrada.min);
     verificaMinutoEntrada(v1);
-    fwrite(&v1.entrada.min, sizeof(int), 1, f);
 
-    printf("Agora, insira informacoes da SAIDA.\n");
+    printf("\nAgora, insira informacoes da SAIDA.\n");
     printf("Ano:\n"); scanf("%d", &v1.saida.ano);           
     bissexto = anoBissextoSaida(v1);
-    fwrite(&v1.saida.ano, sizeof(int), 1, f);
-    printf("Mes:\n");
+    printf("Mes:\n"); scanf("%d", &v1.saida.mes);
     validaMesSaida(v1);
     diasMes = verificaDiasMesSaida(v1);
-    fwrite(&v1.saida.mes, sizeof(int), 1, f);
-    printf("Dia:\n");
+    printf("Dia:\n"); scanf("%d", &v1.saida.dia);
     verificaDiaSaida(v1, bissexto, diasMes);
-    fwrite(&v1.saida.dia, sizeof(int), 1, f);
-    printf("Horario:\nHora:\n");
+    printf("Horario:\nHora:\n"); scanf("%d", &v1.saida.hora);
     verificaHoraSaida(v1);
-    fwrite(&v1.saida.hora, sizeof(int), 1, f);
-    printf("Minutos:\n");
+    printf("Minutos:\n"); scanf("%d", &v1.saida.min);
     verificaMinutoSaida(v1);
-    fwrite(&v1.saida.min, sizeof(int), 1, f);
 
     v1.status = 'P';
+
+    fseek(f, 0, SEEK_END);
+
+    fwrite(&v1, sizeof(veiculo), 1, f);
 }
 
 void alterar(FILE *f) {
@@ -251,81 +235,52 @@ void alterar(FILE *f) {
 }
 
 void remover(FILE *f) {
-    // COMPLETAR
+    struct cadastro v1;
+    char placa[8];
+    printf("Informe a placa do veiculo a ser removido:\n"); scanf("%s", placa); getchar();
+
+    rewind(f);
+    while(fread(&v1, sizeof(v1), 1, f) > 0) {
+        if(strcmp(v1.placa, placa) == 0) {
+            v1.status = 'R';
+            fseek(f, -1 * sizeof(v1), SEEK_CUR);
+            printf("XXXXXXXXXXXXX VEICULO REMOVIDO XXXXXXXXXXXXX");
+            break;
+        }
+    }
 }
 
 void buscar(FILE *f) {
-    // COMPLETAR
+    struct cadastro v1;
+    char placa[8];
+    printf("Informe a placa do veiculo a ser buscado:\n"); scanf("%s", placa); getchar();
+
+    rewind(f);
+    while(fread(&v1, sizeof(v1), 1, f) > 0) {
+        if(strcmp(v1.placa, placa) == 0) {
+            printf("Placa: %s\nModelo: %s\nCor: %s\n", v1.placa, v1.modelo, v1.cor);
+            printf("ENTRADA:\n");
+            printf("%d/%d/%d - %d:%d\n", v1.entrada.dia, v1.entrada.mes, v1.entrada.ano, v1.entrada.hora, v1.entrada.min);
+            printf("SAIDA:\n");
+            printf("%d/%d/%d - %d:%d\n", v1.saida.dia, v1.saida.mes, v1.saida.ano, v1.saida.hora, v1.saida.min);
+        }
+    }
 }
 
-void listar(FILE *f) {
+void listar(FILE *f) { // MESMO APOS REMOVIDO ARQUIVO CONTINUAR A SER LISTADO
     struct cadastro v1;
     printf("Os registros ja incluidos sao:\n");
 
-    printf("Placa: ");
-    fread(v1.placa, sizeof(v1.placa), 1, f);
-    for(int i = 0; i < 7; i++) {
-        printf("%c", v1.placa[i]);
+    rewind(f);
+    while(fread(&v1, sizeof(v1), 1, f) > 0) {
+        if(v1.status == 'P') {
+            printf("Placa: %s\nModelo: %s\nCor: %s\n", v1.placa, v1.modelo, v1.cor);
+            printf("ENTRADA:\n");
+            printf("%d/%d/%d - %d:%d\n", v1.entrada.dia, v1.entrada.mes, v1.entrada.ano, v1.entrada.hora, v1.entrada.min);
+            printf("SAIDA:\n");
+            printf("%d/%d/%d - %d:%d\n", v1.saida.dia, v1.saida.mes, v1.saida.ano, v1.saida.hora, v1.saida.min);
+        }
     }
-    printf("\n");
-
-    printf("Modelo: ");
-    fread(v1.modelo, sizeof(v1.modelo), 1, f);
-    for(int i = 0; i < 10; i++) {
-        printf("%c", v1.modelo[i]);
-    }
-    printf("\n");
-
-    printf("Cor: ");
-    fread(v1.cor, sizeof(v1.cor), 1, f);
-    for(int i = 0; i < 10; i++) {
-        printf("%c", v1.cor[i]);
-    }
-    printf("\n");
-
-    printf("ENTRADA:\n");
-    printf("Ano: ");
-    fread(&v1.entrada.ano, sizeof(int), 1, f);
-    printf("%d", v1.entrada.ano);
-    printf("\n");
-
-    printf("Mes: ");
-    fread(&v1.entrada.mes, sizeof(int), 1, f);
-    printf("%d", v1.entrada.mes);
-    printf("\n");
-
-    printf("Dia: ");
-    fread(&v1.entrada.dia, sizeof(int), 1, f);
-    printf("%d", v1.entrada.dia);
-    printf("\n");
-
-    printf("Horario: ");
-    fread(&v1.entrada.hora, sizeof(int), 1, f);
-    fread(&v1.entrada.min, sizeof(int), 1, f);
-    printf("%d:%d", v1.entrada.hora, v1.entrada.min);
-    printf("\n\n");
-
-    printf("SAIDA:\n");
-    printf("Ano: ");
-    fread(&v1.saida.ano, sizeof(int), 1, f);
-    printf("%d", v1.saida.ano);
-    printf("\n");
-
-    printf("Mes: ");
-    fread(&v1.saida.mes, sizeof(int), 1, f);
-    printf("%d", v1.saida.mes);
-    printf("\n");
-
-    printf("Dia: ");
-    fread(&v1.saida.dia, sizeof(int), 1, f);
-    printf("%d", v1.saida.dia);
-    printf("\n");
-
-    printf("Horario: ");
-    fread(&v1.saida.hora, sizeof(int), 1, f);
-    fread(&v1.saida.min, sizeof(int), 1, f);
-    printf("%d:%d", v1.saida.hora, v1.saida.min);
-    printf("\n\n");
 }
 
 int main()
