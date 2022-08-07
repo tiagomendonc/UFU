@@ -13,7 +13,7 @@ struct cadastro {
     char cor[10];
     struct horario entrada;
     struct horario saida;
-    char status;
+    char status[1];
 };
 typedef struct cadastro veiculo;
 
@@ -141,7 +141,7 @@ void inserir(FILE *f) {
     printf("\nAgora, insira informacoes do horario da SAIDA.\n");
     verificaHorarios(&v1.saida);
 
-    v1.status = 'P';
+    v1.status[0] = 'P';
 
     fseek(f, 0, SEEK_END);
 
@@ -155,7 +155,7 @@ void alterar(FILE *f) {
 
     rewind(f);
     while(fread(&v1, sizeof(v1), 1, f) > 0) {
-        if(strcmp(v1.placa, placa) == 0 && v1.status == 'P') {
+        if(strcmp(v1.placa, placa) == 0 && v1.status[0] == 'P') {
             printf("Registro encontrado!!\n");
             int opcao = -1;
             while(opcao != 0) {
@@ -206,7 +206,7 @@ void remover(FILE *f) {
     rewind(f);
     while(fread(&v1, sizeof(v1), 1, f) > 0) {
         if(strcmp(v1.placa, placa) == 0) {
-            v1.status = 'R';
+            v1.status[0] = 'R';
             fseek(f, -1 * sizeof(veiculo), SEEK_CUR);
             fwrite(&v1, sizeof(veiculo), 1, f);
             printf("XXXXXXXXXXXXX VEICULO REMOVIDO XXXXXXXXXXXXX");
@@ -241,7 +241,7 @@ void listar(FILE *f) {
 
     rewind(f);
     while(fread(&v1, sizeof(v1), 1, f) > 0) {
-        if(v1.status == 'P') {
+        if(v1.status[0] == 'P' || v1.status[0] == 'R') {
             printf("Placa: %s\nModelo: %s\nCor: %s\n", v1.placa, v1.modelo, v1.cor);
             printf("ENTRADA:\n");
             printf("%d/%d/%d - %d:%d\n", v1.entrada.dia, v1.entrada.mes, v1.entrada.ano, v1.entrada.hora, v1.entrada.min);
