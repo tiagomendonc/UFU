@@ -170,25 +170,25 @@ void alterar(FILE *f) {
 
                 switch(opcao) {
                     case 1: printf("Informe a nova placa: \n"); scanf("%s", v1.placa); getchar();
-                            fseek(f, -1 * sizeof(v1), SEEK_CUR);
+                            fseek(f, -1 * sizeof(veiculo), SEEK_CUR);
                             fwrite(&v1, sizeof(veiculo), 1, f);
                             break;
                     case 2: printf("Informe o novo modelo: \n"); scanf("%s", v1.modelo); getchar();
-                            fseek(f, -1 *sizeof(v1), SEEK_CUR);
+                            fseek(f, -1 *sizeof(veiculo), SEEK_CUR);
                             fwrite(&v1, sizeof(veiculo), 1, f);
                             break;
                     case 3: printf("Informe a nova cor: \n"); scanf("%s", v1.cor); getchar();
-                            fseek(f, -1 * sizeof(v1), SEEK_CUR);
+                            fseek(f, -1 * sizeof(veiculo), SEEK_CUR);
                             fwrite(&v1, sizeof(veiculo), 1, f);
                             break;
                     case 4: printf("Informe o novo horario de entrada: \n");
                             verificaHorarios(&v1.entrada);
-                            fseek(f, -1 * sizeof(v1), SEEK_CUR);
+                            fseek(f, -1 * sizeof(veiculo), SEEK_CUR);
                             fwrite(&v1, sizeof(veiculo), 1, f);
                             break;
                     case 5: printf("Informe o novo horario de saida: \n");
                             verificaHorarios(&v1.saida);
-                            fseek(f, -1 * sizeof(v1), SEEK_CUR);
+                            fseek(f, -1 * sizeof(veiculo), SEEK_CUR);
                             fwrite(&v1, sizeof(veiculo), 1, f);
                             break;
                     printf("\n\n\n");
@@ -241,7 +241,7 @@ void listar(FILE *f) {
 
     rewind(f);
     while(fread(&v1, sizeof(v1), 1, f) > 0) {
-        if(v1.status[0] == 'P' || v1.status[0] == 'R') {
+        if(v1.status[0] == 'P') {
             printf("Placa: %s\nModelo: %s\nCor: %s\n", v1.placa, v1.modelo, v1.cor);
             printf("ENTRADA:\n");
             printf("%d/%d/%d - %d:%d\n", v1.entrada.dia, v1.entrada.mes, v1.entrada.ano, v1.entrada.hora, v1.entrada.min);
