@@ -143,7 +143,7 @@ void inserir(FILE *f) {
 
     v1.status[0] = 'P';
 
-    fseek(f, 0, SEEK_END);
+    fseek(f, sizeof(veiculo), SEEK_END);
 
     fwrite(&v1, sizeof(veiculo), 1, f);
 }
@@ -160,7 +160,7 @@ void alterar(FILE *f) {
             int opcao = -1;
             while(opcao != 0) {
                 printf("O que deseja alterar: \n");
-                printf(") - Sair\n");
+                printf("0 - Sair\n");
                 printf("1 - Placa\n");
                 printf("2 - Modelo\n");
                 printf("3 - Cor\n");
@@ -183,12 +183,12 @@ void alterar(FILE *f) {
                             break;
                     case 4: printf("Informe o novo horario de entrada: \n");
                             verificaHorarios(&v1.entrada);
-                            fseek(f, -sizeof(v1), SEEK_CUR);
+                            fseek(f, -1 * sizeof(v1), SEEK_CUR);
                             fwrite(&v1, sizeof(veiculo), 1, f);
                             break;
                     case 5: printf("Informe o novo horario de saida: \n");
                             verificaHorarios(&v1.saida);
-                            fseek(f, -sizeof(v1), SEEK_CUR);
+                            fseek(f, -1 * sizeof(v1), SEEK_CUR);
                             fwrite(&v1, sizeof(veiculo), 1, f);
                             break;
                     printf("\n\n\n");
