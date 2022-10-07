@@ -19,6 +19,24 @@ int encontraMaior(int vet[10], int n) {
     return maior;
 }
 
+// C
+void encontraDoisMaiores(int vet[10], int n) {
+    int maior, segmaior, aux;
+    for(int i = 0; i < 10; i++) {
+        if(i == 0) {
+            maior = vet[i];
+            segmaior = vet[i];
+        } else if (vet[i] > maior) {
+            aux = maior;
+            maior = vet[i];
+            segmaior = aux;
+        } else if(vet[i] > segmaior) {
+            segmaior = vet[i];
+        }
+    }
+    printf("Os dois maiores valores do vetor sao respectivamente: %d e %d\n", maior, segmaior);
+}
+
 // D
 float media(int vet[10], int n) {
     int soma = 0;
@@ -80,6 +98,8 @@ int main()
 
     printf("O maior numero do vetor eh: %d", encontraMaior(vet, 10));
     printf("\n");
+
+    encontraDoisMaiores(vet, 10);
 
     printf("A media dos numeros do vetor eh: %.2f", media(vet, 10));
     printf("\n");
