@@ -2,11 +2,19 @@
 #include <stdlib.h>
 #include <math.h>
 
+#define PI 3.14
+
 struct ponto {
     int x;
     int y;
 };
 typedef struct ponto Ponto;
+
+struct circulo {
+    Ponto *centro;
+    Ponto *raio;
+};
+typedef struct circulo Circulo;
 
 int criar(Ponto *p) {
     p->x = 0;
@@ -27,6 +35,15 @@ double calculaDistancia(Ponto p, Ponto p1) {
     d = sqrt(pow(p1.x - p.x, 2) + pow(p1.y - p.y, 2));
 
     return d;
+}
+
+int criarCirculo(Ponto *p, Ponto *p1, Circulo *c) {
+    c->centro = p;
+    c->raio = p1;
+}
+
+float calculaDistanciaCirculo(Circulo *c) {
+    
 }
 
 int main()
