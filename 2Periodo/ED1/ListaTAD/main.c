@@ -40,10 +40,35 @@ double calculaDistancia(Ponto p, Ponto p1) {
 int criarCirculo(Ponto *p, Ponto *p1, Circulo *c) {
     c->centro = p;
     c->raio = p1;
+
+    return 0;
 }
 
-float calculaDistanciaCirculo(Circulo *c) {
-    
+int inserirCentroCirculo(Circulo *c, int a, int b) {
+    c->centro->x = a;
+    c->centro->y = b;
+
+    return 0;
+}
+
+int inserirBordaCirculo(Circulo *c, int a, int b) {
+    c->raio->x = a;
+    c->raio->y = b;
+
+    return 0;
+}
+
+double calculaRaioCirculo(Circulo c) {
+    double r;
+    r = sqrt(pow(c.raio->x - c.centro->x, 2) + pow(c.raio->y - c.centro->y, 2));
+
+    return r;
+}
+
+double calculaAreaCirculo(Circulo c, float *area, double raio) {
+    *area = PI * pow(raio, 2);
+
+    return 0;
 }
 
 int main()
@@ -72,6 +97,32 @@ int main()
     inserir(&p1, x, y);
 
     printf("A distancia entre os dois pontos eh: %f\n", calculaDistancia(p, p1));
+
+    Circulo c;
+    criarCirculo(&p, &p1, &c);
+    printf("Para calcular a area do circulo, informe as coordenadas do ponto do centro: \n");
+    printf("X: ");
+    scanf("%d", &x);
+    printf("\nY: ");
+    scanf("%d", &y);
+
+    inserirCentroCirculo(&c, x, y);
+
+    printf("Agora, informe as coordenadas do ponto de borda do circulo: \n");
+    printf("X: ");
+    scanf("%d", &x);
+    printf("\nY: ");
+    scanf("%d", &y);
+
+    inserirBordaCirculo(&c, x, y);
+
+    double raio = calculaRaioCirculo(c);
+
+    float area;
+
+    calculaAreaCirculo(c, &area, raio);
+
+    printf("A area do circulo eh: %.2f", area);
 
     return 0;
 }
