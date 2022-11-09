@@ -17,6 +17,9 @@ struct circulo {
 };
 typedef struct circulo Circulo;
 
+/*
+ * Cria estrutura de dados Ponto 
+*/
 int criar(Ponto *p) {
     p->x = 0;
     p->y = 0;
@@ -24,6 +27,10 @@ int criar(Ponto *p) {
     return 0;
 }
 
+/*
+ * Insere os valores em x e y de Ponto
+ * Entrada: Ponto, int a e int b, coletadas na main informadas pelo usuário
+ */
 int inserir(Ponto *p, int a, int b) {
     p->x = a;
     p->y = b;
@@ -31,6 +38,11 @@ int inserir(Ponto *p, int a, int b) {
     return 0;
 }
 
+/*
+ * Calcula a distancia entre dois pontos
+ * Entrada: Dois registros Ponto distintos
+ * Saída: valor da distancia atribuido a d
+ */
 double calculaDistancia(Ponto p, Ponto p1) {
     double d;
     d = sqrt(pow(p1.x - p.x, 2) + pow(p1.y - p.y, 2));
@@ -38,6 +50,9 @@ double calculaDistancia(Ponto p, Ponto p1) {
     return d;
 }
 
+/*
+ * Cria estrutura de dados Circulo, utilizando dois registros Ponto
+ */
 int criarCirculo(Ponto *p, Ponto *p1, Circulo *c) {
     c->centro = p;
     c->raio = p1;
@@ -45,6 +60,10 @@ int criarCirculo(Ponto *p, Ponto *p1, Circulo *c) {
     return 0;
 }
 
+/*
+ * Insere valores dos pontos do centro do Circulo
+ * Entrada: Círculo, int a e int b, coletadas na main informadas pelo usuário
+ */
 int inserirCentroCirculo(Circulo *c, int a, int b) {
     c->centro->x = a;
     c->centro->y = b;
@@ -52,6 +71,10 @@ int inserirCentroCirculo(Circulo *c, int a, int b) {
     return 0;
 }
 
+/*
+ * Insere valores dos pontos da borda do Circulo
+ * Entrada: Círculo, int a e int b, coletadas na main informadas pelo usuário
+ */
 int inserirBordaCirculo(Circulo *c, int a, int b) {
     c->raio->x = a;
     c->raio->y = b;
@@ -59,6 +82,11 @@ int inserirBordaCirculo(Circulo *c, int a, int b) {
     return 0;
 }
 
+/*
+ * Calcula raio (distancia entre centro e borda) do Circulo
+ * Entrada: Circulo
+ * Saída: raio (r)
+ */
 double calculaRaioCirculo(Circulo c) {
     double r;
     r = sqrt(pow(c.raio->x - c.centro->x, 2) + pow(c.raio->y - c.centro->y, 2));
@@ -66,12 +94,22 @@ double calculaRaioCirculo(Circulo c) {
     return r;
 }
 
+/*
+ * Calcula valor da area do Circulo
+ * Entrada: Circulo, area e raio
+ * O valor da area é atribuído à variável float area
+ */
 int calculaAreaCirculo(Circulo c, float *area, double raio) {
     *area = PI * pow(raio, 2);
 
     return 0;
 }
 
+/*
+ * Verifica se um Ponto está dentro da área de um Circulo
+ * Entrada: Ponto, Circulo, raio
+ * Saida: valor booleano de estaDentro
+ */
 bool verificaPontoC(Ponto p, Circulo c, double raio) {
     bool estaDentro;
     float limitex = raio - c.centro->x;
