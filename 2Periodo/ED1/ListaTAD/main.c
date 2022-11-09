@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
+#include <stdbool.h>
 
 #define PI 3.14
 
@@ -65,10 +66,24 @@ double calculaRaioCirculo(Circulo c) {
     return r;
 }
 
-double calculaAreaCirculo(Circulo c, float *area, double raio) {
+int calculaAreaCirculo(Circulo c, float *area, double raio) {
     *area = PI * pow(raio, 2);
 
     return 0;
+}
+
+bool verificaPontoC(Ponto p, Circulo c, double raio) {
+    bool estaDentro;
+    float limitex = raio - c.centro->x;
+    float limitey = raio - c.centro->y;
+
+    if((p.x > limitex && p.x < limitex) || (p.y > limitey && p.y < limitey)) {
+        estaDentro = false;
+    } else {
+        estaDentro = true;
+    }
+
+    return estaDentro;
 }
 
 int main()
@@ -123,6 +138,21 @@ int main()
     calculaAreaCirculo(c, &area, raio);
 
     printf("A area do circulo eh: %.2f", area);
+
+    Ponto p2;
+    criar(&p2);
+    printf("Para verificar se um ponto esta dentro do circulo, informe as coordenadas: \n");
+    printf("X: ");
+    scanf("%d", &x);
+    printf("\nY: ");
+    scanf("%d", &y);
+    inserir(&p2, x, y);
+
+    if(verificaPontoC(p2, c, raio) == true) {
+        printf("O ponto esta dentro do circulo!\n");
+    } else {
+        printf("O ponto esta fora do circulo!\n");
+    }
 
     return 0;
 }
