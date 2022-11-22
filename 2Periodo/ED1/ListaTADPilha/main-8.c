@@ -101,5 +101,16 @@ int main()
         printf("%d ", p2.el[i]);
     }
 
+    while(vazia(p1) == false) {
+        desempilhar(&p1, &x);
+    }
+
+    while(vazia(p2) == false) {
+        desempilhar(&p2, &x);
+    }
+
+    destruir(&p1);
+    destruir(&p2);
+
     return 0;
 }
