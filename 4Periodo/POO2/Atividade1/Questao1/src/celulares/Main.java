@@ -1,3 +1,11 @@
+/*
+ * Neste projeto é utilizado Singleton para a corstrução dos fabricantes e Fábrica para a construção dos celulares.
+ * É importante utilizar estes dois padrões pois:
+ * 	- o padrão Singleton garante que uma única instância de uma classe seja mantida e comparilhada.
+ * 	- o padrãio Fábrica cria objetos de maneira flexível, ocultando a complexidade da criação.
+ */
+
+
 package celulares;
 
 public class Main {  
