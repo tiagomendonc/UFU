@@ -41,6 +41,7 @@ select f.* from filme f where (f.categoria like '%Crime%' and f.categoria like '
 							and f.duracao > 120 
 							and  cast(to_char(age(current_date, f.data_lancamento), 'YY') as integer) > 10
 							and LENGTH(f.titulo_original) > 5;
+						
 							
 -- 9) Listar os 5 filmes mais antigos do acervo.
 select f.* from filme f order by f.data_lancamento asc limit 5
